@@ -317,3 +317,26 @@ void remove_if_young_goat(set<Goat> &trip) {
     cout << "Removed " << (initialSize - trip.size()) 
          << " young goat(s).\n";
 }
+
+// Milestone 8: STL sort - Copy to vector and sort by age
+void sort_by_age_display(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to sort.\n";
+        return;
+    }
+    
+    // Copy set to vector for sorting by age
+    vector<Goat> goatVec(trip.begin(), trip.end());
+    
+    // Sort by age (ascending)
+    sort(goatVec.begin(), goatVec.end(), 
+        [](const Goat& a, const Goat& b) { 
+            return a.get_age() < b.get_age(); 
+        });
+    
+    cout << "\n*** Goats sorted by age (ascending) ***\n";
+    for (const Goat& g : goatVec) {
+        cout << "    " << g.get_name() << " (" << g.get_age() 
+             << ", " << g.get_color() << ")\n";
+    }
+}
