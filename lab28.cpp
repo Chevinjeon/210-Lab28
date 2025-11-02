@@ -106,3 +106,43 @@ int main_menu() {
     cout << "[7] For each display\n";
     cout << "[8] Transform goat names\n";
     cout << "[9] Accumulate total age\n";
+    cout << "[10] Remove young goats\n";
+    cout << "[11] Sort by age display\n";
+    cout << "[12] Quit\n";
+    cout << "Choice --> ";
+    int choice;
+    cin >> choice;
+    return choice;
+}
+
+// Display the goat selection submenu
+void display_goat_menu(set<Goat> trip) {
+    int index = 1;
+    for (const Goat& g : trip) {
+        cout << "    [" << index << "] " << g.get_name() 
+             << " (" << g.get_age() << ", " << g.get_color() << ")\n";
+        index++;
+    }
+}
+
+// Task 3: Add a goat to the trip
+void add_goat(set<Goat> &trip, string names[], string colors[]) {
+    string name = names[rand() % SZ_NAMES];
+    string color = colors[rand() % SZ_COLORS];
+    int age = rand() % (MAX_AGE + 1);
+    
+    Goat newGoat(name, age, color);
+    auto result = trip.insert(newGoat);
+    if (result.second) {
+        cout << "\nAdded: " << name << " (" << age << ", " << color << ")\n";
+    } else {
+        cout << "\nGoat " << name << " already exists in the set.\n";
+    }
+}
+
+// Task 3: Delete a goat from the trip
+void delete_goat(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to delete.\n";
+        return;
+    }
