@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <set>
+#include <vector>
 #include <algorithm>
 #include <numeric>
 #include <cstdlib>
@@ -34,3 +35,61 @@ int main() {
     ifstream fin("names.txt");
     string names[SZ_NAMES];
     int i = 0;
+    while (fin >> names[i++]);
+    fin.close();
+    ifstream fin1("colors.txt");
+    string colors[SZ_COLORS];
+    i = 0;
+    while (fin1 >> colors[i++]);
+    fin1.close();
+
+    set<Goat> trip;
+    bool again = true;
+
+    while (again) {
+        int choice = main_menu();
+        switch(choice) {
+            case 1:
+                add_goat(trip, names, colors);
+                break;
+            case 2:
+                delete_goat(trip);
+                break;
+            case 3:
+                display_trip(trip);
+                break;
+            case 4:
+                find_goat(trip);
+                break;
+            case 5:
+                count_goats_by_age(trip);
+                break;
+            case 6:
+                find_if_old_goat(trip);
+                break;
+            case 7:
+                for_each_display(trip);
+                break;
+            case 8:
+                transform_goat_names(trip);
+                break;
+            case 9:
+                accumulate_total_age(trip);
+                break;
+            case 10:
+                remove_if_young_goat(trip);
+                break;
+            case 11:
+                sort_by_age_display(trip);
+                break;
+            case 12:
+                again = false;
+                cout << "\nThanks for using Goat Manager 3002!\n";
+                break;
+            default:
+                cout << "Invalid choice.\n";
+        }
+    }
+
+    return 0;
+}
