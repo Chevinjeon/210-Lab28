@@ -146,3 +146,107 @@ void delete_goat(set<Goat> &trip) {
         cout << "\nNo goats to delete.\n";
         return;
     }
+    
+    display_goat_menu(trip);
+    cout << "\nWhich goat to delete? --> ";
+    int choice;
+    cin >> choice;
+    
+    if (choice >= 1 && choice <= (int)trip.size()) {
+        auto it = trip.begin();
+        for (int i = 1; i < choice; i++) {
+            it++;
+        }
+        cout << "\nDeleted: " << it->get_name() << " (" 
+             << it->get_age() << ", " << it->get_color() << ")\n";
+        trip.erase(it);
+    } else {
+        cout << "Invalid choice.\n";
+    }
+}
+
+// Task 3: Display all goats in the trip
+void display_trip(set<Goat> trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats on the trip.\n";
+        return;
+    }
+    
+    cout << "\n*** Current Trip ***\n";
+    display_goat_menu(trip);
+}
+
+// Milestone 1: STL find - Find a goat by name
+void find_goat(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to search.\n";
+        return;
+    }
+    
+    cout << "\nEnter goat name to find: ";
+    string searchName;
+    cin >> searchName;
+    
+    // Create a temporary goat with just the name for comparison
+    Goat searchGoat(searchName);
+    auto it = trip.find(searchGoat);
+    
+    if (it != trip.end()) {
+        cout << "\nFound: " << it->get_name() << " (" 
+             << it->get_age() << ", " << it->get_color() << ")\n";
+    } else {
+        cout << "\nGoat \"" << searchName << "\" not found.\n";
+    }
+}
+
+// Milestone 2: STL count_if - Count goats with age >= threshold
+void count_goats_by_age(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to count.\n";
+        return;
+    }
+    
+    cout << "\nEnter minimum age threshold: ";
+    int threshold;
+    cin >> threshold;
+    
+    int count = count_if(trip.begin(), trip.end(), 
+        [threshold](const Goat& g) { return g.get_age() >= threshold; });
+    
+    cout << "\nGoats with age >= " << threshold << ": " << count << "\n";
+}
+
+// Milestone 3: STL find_if - Find first goat with age >= threshold
+void find_if_old_goat(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to search.\n";
+        return;
+    }
+    
+    cout << "\nEnter minimum age threshold: ";
+    int threshold;
+    cin >> threshold;
+    
+    auto it = find_if(trip.begin(), trip.end(), 
+        [threshold](const Goat& g) { return g.get_age() >= threshold; });
+    
+    if (it != trip.end()) {
+        cout << "\nFirst old goat found: " << it->get_name() << " (" 
+             << it->get_age() << ", " << it->get_color() << ")\n";
+    } else {
+        cout << "\nNo goats found with age >= " << threshold << ".\n";
+    }
+}
+
+// Milestone 4: STL for_each - Display all goats using for_each
+void for_each_display(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to display.\n";
+        return;
+    }
+    
+    cout << "\n*** Goats (using for_each) ***\n";
+    for_each(trip.begin(), trip.end(), [](const Goat& g) {
+        cout << "    " << g.get_name() << " (" << g.get_age() 
+             << ", " << g.get_color() << ")\n";
+    });
