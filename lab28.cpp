@@ -250,3 +250,11 @@ void for_each_display(set<Goat> &trip) {
         cout << "    " << g.get_name() << " (" << g.get_age() 
              << ", " << g.get_color() << ")\n";
     });
+}
+
+// Milestone 5: STL transform - Create uppercase name list
+void transform_goat_names(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to transform.\n";
+        return;
+    }
