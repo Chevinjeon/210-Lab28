@@ -93,3 +93,16 @@ int main() {
 
     return 0;
 }
+
+// Task 2: Display main menu and get user choice
+int main_menu() {
+    cout << "\n*** GOAT MANAGER 3002 ***\n";
+    cout << "[1] Add a goat\n";
+    cout << "[2] Delete a goat\n";
+    cout << "[3] List goats\n";
+    cout << "[4] Find a goat\n";
+    cout << "[5] Count goats by age\n";
+    cout << "[6] Find if old goat\n";
+    cout << "[7] For each display\n";
+    cout << "[8] Transform goat names\n";
+    cout << "[9] Accumulate total age\n";
