@@ -258,3 +258,62 @@ void transform_goat_names(set<Goat> &trip) {
         cout << "\nNo goats to transform.\n";
         return;
     }
+    
+    cout << "\n*** Demonstrating transform (creating uppercase name list) ***\n";
+    vector<string> upperNames;
+    transform(trip.begin(), trip.end(), back_inserter(upperNames),
+        [](const Goat& g) {
+            string name = g.get_name();
+            transform(name.begin(), name.end(), name.begin(), ::toupper);
+            return name;
+        });
+    
+    cout << "Uppercase names:\n";
+    for (const string& name : upperNames) {
+        cout << "    " << name << "\n";
+    }
+}
+
+// Milestone 6: STL accumulate - Sum total age of all goats
+void accumulate_total_age(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to accumulate.\n";
+        return;
+    }
+    
+    int totalAge = accumulate(trip.begin(), trip.end(), 0,
+        [](int sum, const Goat& g) { return sum + g.get_age(); });
+    
+    cout << "\nTotal age of all goats: " << totalAge << "\n";
+    cout << "Average age: " << fixed << setprecision(2) 
+         << (double)totalAge / trip.size() << "\n";
+}
+
+// Milestone 7: Remove goats with age < threshold
+void remove_if_young_goat(set<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to remove.\n";
+        return;
+    }
+    
+    cout << "\nEnter maximum age to remove (goats with age < this): ";
+    int threshold;
+    cin >> threshold;
+    
+    int initialSize = trip.size();
+    
+    // Iterate and erase manually since sets don't support remove_if directly
+    auto it = trip.begin();
+    while (it != trip.end()) {
+        if (it->get_age() < threshold) {
+            cout << "Removing: " << it->get_name() << " (" 
+                 << it->get_age() << ")\n";
+            it = trip.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    
+    cout << "Removed " << (initialSize - trip.size()) 
+         << " young goat(s).\n";
+}
